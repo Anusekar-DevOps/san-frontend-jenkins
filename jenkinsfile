@@ -5,7 +5,7 @@ pipeline {}
         stage('Cloning Git') {
             steps {
                
-                git branch: 'main', url: 'https://gitlab.com/ponsun2024/san-frontend-jenkins.git'
+                git branch: 'main', url: 'https://github.com/Anusekar-DevOps/san-frontend-jenkins.git/'
             }
         }
         stage('Building image') {
