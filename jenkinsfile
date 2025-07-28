@@ -2,28 +2,24 @@ pipeline {
     agent any
 
     stages {
-        stage('Cloning Git') {
+        stage('Clone Repo') {
             steps {
                 git branch: 'main', url: 'https://github.com/Anusekar-DevOps/san-frontend-jenkins.git'
             }
         }
 
-        stage('Building image') {
+        stage('Build Docker Image') {
             steps {
-                script {
-                    sh '''
-                    docker build -t san-frontend .
-                    '''
-                }
+                sh 'docker build -t san-frontend .'
             }
         }
 
-        stage('Running image') {
+        stage('Run Docker Container') {
             steps {
                 script {
-                    sh '''
-                    docker run -d -p 8081:80 san-frontend
-                    '''
+                    sh 'docker stop san-container || true'
+                    sh 'docker rm san-container || true'
+                    sh 'docker run -d -p 8081:80 --name san-container san-frontend'
                 }
             }
         }
